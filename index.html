@@ -1,66 +1,102 @@
-<!-- Same HTML structure as before -->
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cricket Player Stats</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-    <div class="lower-third" id="lowerThird">
-      <h1 id="title" onclick="showNext()"></h1>
-      <div id="description" class="player-info">
-        <p>Age: </p>
-        <p>Role: </p>
-        <p>Style: </p>
-      </div>
+  <div class="lower-third" id="lowerThird">
+    <h1 id="title" onclick="showNext()"></h1>
+    <div id="description" class="player-info">
+      <div class="name"> <p id="nameLabel">Name: </p> <p id="nameData" onclick="showNext()"></p> </div>
+      <div class="age"> <p id="ageLabel">Age: </p> <p id="ageData"></p> </div>
+      <div class="role">  <p id="roleLabel">Role: </p> <p id="roleData"></p> </div> 
+      <div class="style"> <p id="styleLabel">Style: </p> <p id="styleData"></p> </div>
     </div>
-  
-    <div class="file-upload" id="fileUploadContainer">
-      <input type="file" id="fileInput">
-      <button onclick="loadFile()">Load Player Data</button>
-    </div>
-  
-    <script>
-      let playersData = [];
-      let currentPlayerIndex = 0;
-  
-      function updateLowerThird(player) {
-        document.getElementById('title').innerText = player.name;
-        document.getElementById('description').innerHTML = `
-          <p>Age: ${player.age}</p>
-          <p>Role: ${player.role}</p>
-          <p>Style: ${player.style}</p>
-        `;
-        hideFileUpload(); // Hide the file upload section
+  </div>
+
+  <div class="file-upload" id="fileUploadContainer">
+    <input type="file" id="fileInput">
+    <button onclick="loadAndSearch()">Search and Load Player Data</button>
+  </div>
+
+  <div class="search-bar" id="searchBar">
+    <input type="text" id="searchInput" placeholder="Search player name...">
+    <button onclick="searchPlayer()">Search</button>
+  </div>
+
+  <script>
+    let playersData = [];
+    let currentPlayerIndex = 0;
+
+    function updateLowerThird(player) {
+      document.getElementById('nameData').textContent = player.name;
+      document.getElementById('ageLabel').textContent = 'Age: '; // Restore the label
+      document.getElementById('ageData').textContent = player.age; // Set only the age value
+      document.getElementById('roleData').textContent = player.role;
+      document.getElementById('styleData').textContent = player.style;
+      hideLabels(); // Hide labels after filling data
+      hideFileUpload(); // Hide the file upload section
+      hideSearchBar(); // Hide the search bar after loading
+    }
+
+    function loadAndSearch() {
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const content = event.target.result;
+          try {
+            playersData = JSON.parse(content);
+            currentPlayerIndex = 0;
+            updateLowerThird(playersData[currentPlayerIndex]);
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        console.error('No file selected.');
       }
-  
-      function loadFile() {
-        const fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = function(event) {
-            const content = event.target.result;
-            try {
-              playersData = JSON.parse(content);
-              if (playersData.length > 0) {
-                updateLowerThird(playersData[currentPlayerIndex]);
-              }
-            } catch (error) {
-              console.error('Error parsing JSON:', error);
-            }
-          };
-          reader.readAsText(file);
+    }
+
+    function showNext() {
+      if (playersData.length > 0) {
+        currentPlayerIndex = (currentPlayerIndex + 1) % playersData.length;
+        updateLowerThird(playersData[currentPlayerIndex]);
+      }
+    }
+
+    function hideFileUpload() {
+      document.getElementById('fileUploadContainer').style.display = 'none';
+    }
+
+    function hideSearchBar() {
+      document.getElementById('searchBar').style.display = 'none';
+    }
+
+    function hideLabels() {
+      document.getElementById('nameLabel').style.display = 'none';
+      document.getElementById('ageLabel').style.display = 'none';
+      document.getElementById('roleLabel').style.display = 'none';
+      document.getElementById('styleLabel').style.display = 'none';
+    }
+
+    function searchPlayer() {
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      if (playersData.length > 0) {
+        const player = playersData.find(p => p.name.toLowerCase() === searchInput);
+        if (player) {
+          updateLowerThird(player);
         } else {
-          console.error('No file selected.');
+          console.log('Player not found.');
         }
+      } else {
+        console.log('Player data not loaded yet.');
       }
-  
-      function showNext() {
-        if (playersData.length > 0) {
-          currentPlayerIndex = (currentPlayerIndex + 1) % playersData.length;
-          updateLowerThird(playersData[currentPlayerIndex]);
-        }
-      }
-  
-      function hideFileUpload() {
-        document.getElementById('fileUploadContainer').style.display = 'none';
-      }
-    </script>
-  </body>
-  
+    }
+  </script>
+</body>
+</html>

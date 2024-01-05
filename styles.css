@@ -1,0 +1,9 @@
+#nameData {
+    font-size: 30px;
+    color: blue;
+    /* Other styles */
+}
+  #ageData {
+      position: absolute;
+      left: 500px;
+  }
