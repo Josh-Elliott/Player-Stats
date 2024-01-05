@@ -10,7 +10,7 @@
     <h1 id="title" onclick="showNext()"></h1>
     <div id="description" class="player-info">
       <div class="name"> <p id="nameLabel">Name: </p> <p id="nameData" onclick="showNext()"></p> </div>
-      <div class="age"> <p id="ageLabel">Age: </p> <p id="ageData"></p> </div>
+      <div class="age"> <p id="ageLabel">Age: <span id="ageData"></span></p> </div>
       <div class="role">  <p id="roleLabel">Role: </p> <p id="roleData"></p> </div> 
       <div class="style"> <p id="styleLabel">Style: </p> <p id="styleData"></p> </div>
     </div>
@@ -32,8 +32,7 @@
 
     function updateLowerThird(player) {
       document.getElementById('nameData').textContent = player.name;
-      document.getElementById('ageLabel').textContent = 'Age: '; // Restore the label
-      document.getElementById('ageData').textContent = player.age; // Set only the age value
+      document.getElementById('ageData').textContent = player.age;
       document.getElementById('roleData').textContent = player.role;
       document.getElementById('styleData').textContent = player.style;
       hideLabels(); // Hide labels after filling data
@@ -79,7 +78,6 @@
 
     function hideLabels() {
       document.getElementById('nameLabel').style.display = 'none';
-      document.getElementById('ageLabel').style.display = 'none';
       document.getElementById('roleLabel').style.display = 'none';
       document.getElementById('styleLabel').style.display = 'none';
     }
