@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Player 1",
+    "age": 25,
+    "role": "Batsman",
+    "style": "Right-hand batsman"
+  },
+  {
+    "name": "Player 2",
+    "age": 30,
+    "role": "Bowler",
+    "style": "Right-arm fast"
+  }
+]
