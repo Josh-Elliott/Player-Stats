@@ -7,3 +7,8 @@
       position: absolute;
       left: 500px;
   }
+
+.lower-third {
+    background-image: url(./shirt-texture.jpeg); 
+}
+
