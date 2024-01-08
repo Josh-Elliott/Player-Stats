@@ -14,6 +14,8 @@
       <div class="role">  <p id="roleLabel">Role: </p> <p id="roleData"></p> </div> 
       <div class="style"> <p id="styleLabel">Style: </p> <p id="styleData"></p> </div>
       <div class="twitter"> <p id="twitterLabel">Twitter:</p> <p id="twitterData"></p></div>
+      <div class="fact"> <p id="factLabel">fact:</p> <p id="factData"></p></div>
+
     </div>
   </div>
 
@@ -37,6 +39,8 @@
       document.getElementById('roleData').textContent = player.role;
       document.getElementById('styleData').textContent = player.style;
       document.getElementById('twitterData').textContent =player.twitter;
+      document.getElementById('factData').textContent =player.fact;
+
       hideLabels(); // Hide labels after filling data
       hideFileUpload(); // Hide the file upload section
       hideSearchBar(); // Hide the search bar after loading
@@ -82,7 +86,9 @@
       document.getElementById('nameLabel').style.display = 'none';
       document.getElementById('roleLabel').style.display = 'none';
       document.getElementById('styleLabel').style.display = 'none';
-      document.getElementById('twitterLabel').style.display = 'none'
+      document.getElementById('twitterLabel').style.display = 'none';
+      document.getElementById('factLabel').style.display = 'none'
+
     }
 
     function searchPlayer() {
