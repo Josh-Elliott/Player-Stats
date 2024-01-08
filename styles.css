@@ -9,6 +9,6 @@
   }
 
 .lower-third {
-    background-image: url(./shirt-texture.jpeg); 
+    background: linear-gradient(135deg, #e8d7d7, #dc4343);
 }
 
